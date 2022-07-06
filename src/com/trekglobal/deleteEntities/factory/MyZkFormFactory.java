@@ -15,9 +15,9 @@ package com.trekglobal.deleteEntities.factory;
 
 import java.util.logging.Level;
 
+import org.adempiere.webui.apps.form.WDelete;
 import org.adempiere.webui.factory.IFormFactory;
 import org.adempiere.webui.panel.ADForm;
-import org.adempiere.webui.panel.IFormController;
 import org.compiere.util.CLogger;
 
 /**
@@ -39,55 +39,11 @@ public class MyZkFormFactory implements IFormFactory {
 	 */
 	@Override
 	public ADForm newFormInstance(String formName) {
-		Object form = null;
-		if (formName.equals("org.compiere.apps.form.VDelete") ) {
-			// we cut short here
-			String webClassName = "org.adempiere.webui.apps.form.WDelete";
-    		
-     		Class<?> clazz = null; 
-     		ClassLoader	loader = this.getClass().getClassLoader();
-     		try
-     		{
-     			//	Create instance w/o parameters
-     			clazz = loader.loadClass(webClassName);
-     		}
-     		catch (Exception e)
-     		{
-     			if (log.isLoggable(Level.INFO))
-     				log.log(Level.INFO, e.getLocalizedMessage(), e);
-     		}
-
-     		if (clazz != null) {
-     			try
-     			{
-     				form = clazz.newInstance();
-     			}
-     			catch (Exception e)
-     			{
-     				if (log.isLoggable(Level.WARNING))
-     					log.log(Level.WARNING, e.getLocalizedMessage(), e);
-     			}
-     		}
-     		
-		}
-				
-		
-		if (form != null) {
-			if (form instanceof ADForm) {
-				return (ADForm)form;
-			} else if (form instanceof IFormController) {
-				IFormController controller = (IFormController) form;
-				ADForm adForm = controller.getForm();
-				adForm.setICustomForm(controller);
-				return adForm;
-			}
-		}
-		
-		if (log.isLoggable(Level.INFO))
-			log.info(formName + " not found at extension registry and classpath");
+		if (log.isLoggable(Level.INFO)) log.info("");
+		if (   "org.compiere.apps.form.VDelete".equals(formName)
+			|| WDelete.class.getName().equals(formName))
+			return new WDelete().getForm();
 		return null;
 	}
-
-
 
 }

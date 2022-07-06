@@ -185,7 +185,7 @@ public class WDelete implements IFormController,EventListener<Event>, WTableMode
 			rs1 = pstmt1.executeQuery();
 			while (rs1.next())
 			{
-				clientID = new Integer(rs1.getInt(1));
+				clientID = Integer.valueOf(rs1.getInt(1));
 				clientName = new String(rs1.getString(2));
 				clientPick.appendItem(clientName, clientID);
 				clientMap.put(clientName, clientID);
@@ -550,7 +550,7 @@ public class WDelete implements IFormController,EventListener<Event>, WTableMode
 
 				if (cnt > 0) {
 					Vector<Object> line = new Vector<Object>(4);
-					line.add(new Boolean(false));  //  0-Selection
+					line.add(Boolean.FALSE);  //  0-Selection
 					line.add(tableName);	//  TableName
 					line.add(cnt);  		//  Counter
 					line.add(isTrx);  		//  IsTrx
