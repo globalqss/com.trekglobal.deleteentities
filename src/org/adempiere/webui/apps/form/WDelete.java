@@ -30,7 +30,7 @@ import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.CustomForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
-import org.adempiere.webui.window.FDialog;
+import org.adempiere.webui.window.Dialog;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -378,7 +378,7 @@ public class WDelete implements IFormController,EventListener<Event>, WTableMode
 		{
 			if (clientId == null)
 			{
-				FDialog.error(form.getWindowNo(), "Error",
+				Dialog.error(form.getWindowNo(), "Error",
 						"Select client for cascade delete.");
 			}
 			else
@@ -433,7 +433,7 @@ public class WDelete implements IFormController,EventListener<Event>, WTableMode
 					m_totalDelete = 0;
 					m_totalUpdate = 0;
 					m_trx.rollback();
-					FDialog.error(form.getWindowNo(), "DeleteError", errorMsg);
+					Dialog.error(form.getWindowNo(), "DeleteError", errorMsg);
 					return;
 				}
 				finally
@@ -450,7 +450,7 @@ public class WDelete implements IFormController,EventListener<Event>, WTableMode
 						.append(m_totalDelete)
 						.append("<br><br>"));
 
-				FDialog.info(form.getWindowNo(), form, commit ? "DeleteSuccess" : "Test",
+				Dialog.info(form.getWindowNo(), commit ? "DeleteSuccess" : "Test",
 						Msg.parseTranslation(Env.getCtx(), logMsg.toString()));
 
 				if (commit) {
@@ -472,7 +472,7 @@ public class WDelete implements IFormController,EventListener<Event>, WTableMode
 
 	private void generateTree(int selectedTableID, int clientID) {
 		if (selectedTableID <= 0 || clientId <= 0) {
-			FDialog.error(form.getWindowNo(), "ParameterError", "Table or Client cannot be Null.");
+			Dialog.error(form.getWindowNo(), "ParameterError", "Table or Client cannot be Null.");
 			return;
 		}
 
@@ -576,8 +576,6 @@ public class WDelete implements IFormController,EventListener<Event>, WTableMode
 		m_tableListbox.setColumnClass(1, String.class, true);   //  TableName
 		m_tableListbox.setColumnClass(2, Integer.class, true);  //  Counter
 		m_tableListbox.setColumnClass(3, Boolean.class, true);  //  IsTrx
-		//
-		m_tableListbox.autoSize();
 		setStatus();
 	}
 
