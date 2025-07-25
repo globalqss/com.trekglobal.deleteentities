@@ -32,6 +32,7 @@ public class DeleteEntitiesModel {
 	public void setWhereClause(String whereClause) {
 		if (   "T_Report".equals(tableName)
 			|| "T_ReportStatement".equals(tableName)
+			|| "T_Spool".equals(tableName)
 			|| "AD_PInstance_Log".equals(tableName)) {
 			// Replace AD_Client_ID=? with AD_PInstance_ID IN (SELECT AD_PInstance_ID FROM AD_PInstance WHERE AD_Client_ID=?)
 			whereClause = whereClause.replaceAll(tableName + ".AD_Client_ID=\\?", 
